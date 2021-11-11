@@ -5,13 +5,7 @@
 // Changes here require a server restart.
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
-const StoryblokClient = require('storyblok-js-client')
-
-// 2. Initialize the client with the preview token
-// from your space dashboard at https://app.storyblok.com
-let Storyblok = new StoryblokClient({
-  accessToken: process.env.STORYBLOK_ACCESS_TOKEN
-})
+const Prismic = require('@prismicio/client');
 
 const projects = [
   {
@@ -75,31 +69,27 @@ module.exports = function (api) {
     const projectCollection = addCollection('Project')
 
     try {
-      const { data } = await Storyblok.get('cdn/stories', { starts_with: 'projects/' })
+      const api = await Prismic.getApi(
+        process.env.PRISMIC_API_ENDPOINT,
+        { accessToken: process.env.PRISMIC_ACCESS_TOKEN, }
+      )
 
-      for (const s of data.stories) {
-        console.log(s.content.body)
+      const { results } = await api.query(Prismic.Predicates.at('document.type', 'project'))
 
-        // const content 
-        // https://www.storyblok.com/docs/image-service
-
-        // /m/500x500/filters:quality(50)
-
+      for (const d of results) {
         projectCollection.addNode({
-          slug: s.slug,
-          publishAt: s.published_at,
-          thumbnail: s.content.thumbnail.filename,
-          title: s.content.title,
-          description: s.content.description,
-          body: JSON.stringify(s.content.body)
+          slug: d.uid,
+          publishAt: d.first_publication_date,
+          thumbnail: d.data.thumbnail.url,
+          title: d.data.title,
+          description: d.data.description,
+          body: JSON.stringify(d.data.body)
         })
       }
     }
     catch (error) {
       console.log(error)
     }
-
-
 
     for (const project of projects) {
       projectCollection.addNode(project)

@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <div class="fixed w-full bg-white border-b border-gray-200 py-6">
+    <div class="sticky w-full bg-white border-b border-gray-200 py-6">
       <div class="container">
         <div class="flex justify-between">
           <GLink to="/">
@@ -42,12 +42,13 @@ query ($id: ID!) {
 </page-query>
 
 <script>
-import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.es'
+import PrismicDOM from 'prismic-dom'
+
+import htmlSerializer from '@/prismic/html-serializer.js'
+import linkResolver from '@/prismic/link-resolver.js'
 
 import Triangle from '@/components/Triangle'
 
-const resolver = new RichTextResolver()
- 
 export default {
   components: {
     Triangle
@@ -61,17 +62,8 @@ export default {
 
   computed: {
     body() {
-      return resolver.render(JSON.parse(this.$page.project.body))
+      return PrismicDOM.RichText.asHtml(JSON.parse(this.$page.project.body), linkResolver, htmlSerializer)
     }
   }
 }
 </script>
-
-
-<style lang="scss" scoped>
-.c-content {
-  ::v-deep p {
-    @apply mb-4 text-justify;
-  }
-}
-</style>
