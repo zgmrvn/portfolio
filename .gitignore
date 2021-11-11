@@ -1,0 +1,6 @@
+.cache
+.env
+.vercel
+dist/
+node_modules/
+src/.temp
