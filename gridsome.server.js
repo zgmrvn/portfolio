@@ -12,55 +12,64 @@ const projects = [
     title: 'Terrain editor replacement for Arma 3 SDK tool',
     description: 'A prototype of a terrain editor aiming a replacing Arma 3 Terrain Builder, Made with Unity',
     slug: 'terrain-replace',
-    thumbnail: 'https://cdnb.artstation.com/p/assets/images/images/013/305/417/large/m-s-sans-titre-2.jpg?1539017059'
+    thumbnail: 'https://cdnb.artstation.com/p/assets/images/images/013/305/417/large/m-s-sans-titre-2.jpg?1539017059',
+    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
   },
   {
     title: 'Environnment mod for Arma 3',
     description: 'A environement pack to add variety to ',
     slug: 'utd-sahels',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148'
+    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
+    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
   },
   {
     title: 'Documentation UTD',
     description: 'Project gridsome, technical blog',
     slug: 'udt-documentaiton-ls',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148'
+    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
+    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
   },
   {
     title: 'Terrain editor replacement for Arma 3 SDK tool',
     description: 'A prototype of a terrain editor aiming a replacing Arma 3 Terrain Builder, Made with Unity',
     slug: 'terrain-replace-ss',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148'
+    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
+    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
   },
   {
     title: 'Environnment mod for Arma 3',
     description: 'A environement pack to add variety to ',
     slug: 'utd-sahel-kk',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148'
+    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
+    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
   },
   {
     title: 'Documentation UTD',
     description: 'Project gridsome, technical blog',
     slug: 'udt-documentaiton-dfg',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148'
+    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
+    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
   },
   {
     title: 'Terrain editor replacement for Arma 3 SDK tool',
     description: 'A prototype of a terrain editor aiming a replacing Arma 3 Terrain Builder, Made with Unity',
     slug: 'terrain-replace-dd',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148'
+    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
+    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
   },
   {
     title: 'Environnment mod for Arma 3',
     description: 'A environement pack to add variety to ',
     slug: 'utd-sahel-dfd',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148'
+    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
+    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
   },
   {
     title: 'Documentation UTD',
     description: 'Project gridsome, technical blog',
     slug: 'udt-documentaiton-fdf',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148'
+    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
+    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
   }
 ]
 
@@ -86,8 +95,7 @@ module.exports = function (api) {
           body: JSON.stringify(d.data.body)
         })
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error)
     }
 

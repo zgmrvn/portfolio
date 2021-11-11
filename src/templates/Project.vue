@@ -20,10 +20,7 @@
         {{ $page.project.title }}
       </h1>
 
-      <div
-        v-html="body"
-        class="c-content"
-      />
+      <div v-html="body" />
 
       <GLink to="/">
         Next project
