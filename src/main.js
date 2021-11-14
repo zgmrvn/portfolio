@@ -18,7 +18,7 @@ library.add(faYoutube)
 export default function (Vue, { head }) {
   head.link.push({
     rel: 'stylesheet',
-    href: 'https://fonts.googleapis.com/css2?family=Open+Sans&family=Rajdhani:wght@400;500;600&display=swap'
+    href: 'https://fonts.googleapis.com/css2?family=Montserrat&family=PT+Sans&display=swap'
   })
 
   head.meta.push({ name: 'keywords',  content: 'équipe, team, clan, Arma, simulation, réalisme, tactique' })

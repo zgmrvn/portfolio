@@ -5,10 +5,10 @@ const Elements = PrismicDOM.RichText.Elements
 export default function(type, element, content, children) {
   switch(type) {
     case Elements.paragraph:
-      return '<p class="mb-4">' + children.join('') + '</p>'
+      return '<p class="text-justify w-3/4 mx-auto mt-4">' + children.join('') + '</p>'
 
     case Elements.image:
-      return '<img src="' + element.url + '" alt="' + element.alt + '">'
+      return '<img src="' + element.url + '" alt="' + element.alt + '" class="mt-4">'
 
     // Add a class to hyperlinks
     case Elements.hyperlink:

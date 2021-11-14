@@ -47,7 +47,7 @@ export default {
     // percentage of the size of the canvas that will be used to jitter vertices
     jitter: {
       type: Number,
-      default: 0.1
+      default: 0.4
     }
   },
 
@@ -57,48 +57,53 @@ export default {
 
   computed: {
     jitterPx() {
-      return Math.floor(this.size * this.jitter)
+      return Math.floor(this.size * this.jitter / 2)
     }
   },
 
   methods: {
     generate() {
       const ctx = this.$refs.canvas.getContext('2d')
-      const canvasHalfWidth = this.size / 2
-      const canvasHalfHeight = this.size / 2
+      const canvasHalfSize = this.size / 2
 
       // debug circles
       // ctx.beginPath()
-      // ctx.arc(canvasHalfWidth, canvasHalfHeight, this.size / 2, 0, TAU)
+      // ctx.arc(canvasHalfSize, canvasHalfSize, canvasHalfSize, 0, TAU)
       // ctx.stroke()
       // ctx.beginPath()
-      // ctx.arc(canvasHalfWidth, canvasHalfHeight, this.size / 2 - MAX_POSITION_JITTER, 0, TAU)
+      // ctx.arc(canvasHalfSize, canvasHalfSize, canvasHalfSize - this.jitterPx, 0, TAU)
       // ctx.stroke()
 
       // draw triangle
       ctx.beginPath()
 
+      // randomly rotate triangle
       const jitterRad = MAX_ROTATION_JITTER / 2 - Math.random() * MAX_ROTATION_JITTER
 
       for (let i = 0; i < 3; i++) {
-        const jitterDist = Math.random() * this.jitterPx / 2
+        // find perfect vertice
+        const rad = -TWELVETH + jitterRad + THIRD * i + THIRD
+        const r = (canvasHalfSize - this.jitterPx / 2)
+        const x = canvasHalfSize + Math.cos(rad)  * r
+        const y = canvasHalfSize + Math.sin(rad) * r
+
+        // jitter vertice
+        const jitterDist = Math.sqrt(Math.random()) * this.jitterPx / 2
         const jitterX = Math.cos(jitterRad) * jitterDist
         const jitterY = Math.sin(jitterRad) * jitterDist
 
-        const rad = -TWELVETH + jitterRad + THIRD * i + THIRD
         const method = i === 0 ? 'moveTo' : 'lineTo'
-        const x = canvasHalfWidth + Math.cos(rad) * (canvasHalfWidth - this.jitterPx / 2)
-        const y = canvasHalfHeight + Math.sin(rad) * (canvasHalfHeight - this.jitterPx / 2)
 
         ctx[method](x + jitterX, y + jitterY)
 
         // more debug circles
         // ctx.beginPath()
-        // ctx.arc(x, y, MAX_POSITION_JITTER / 2, 0, TAU)
+        // ctx.arc(x, y, this.jitterPx / 2, 0, TAU)
         // ctx.stroke()
       }
 
       ctx.closePath()
+      //  ctx.stroke()
 
       if (this.image) {
         ctx.clip()

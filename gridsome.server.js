@@ -7,72 +7,6 @@
 
 const Prismic = require('@prismicio/client');
 
-const projects = [
-  {
-    title: 'Terrain editor replacement for Arma 3 SDK tool',
-    description: 'A prototype of a terrain editor aiming a replacing Arma 3 Terrain Builder, Made with Unity',
-    slug: 'terrain-replace',
-    thumbnail: 'https://cdnb.artstation.com/p/assets/images/images/013/305/417/large/m-s-sans-titre-2.jpg?1539017059',
-    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
-  },
-  {
-    title: 'Environnment mod for Arma 3',
-    description: 'A environement pack to add variety to ',
-    slug: 'utd-sahels',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
-    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
-  },
-  {
-    title: 'Documentation UTD',
-    description: 'Project gridsome, technical blog',
-    slug: 'udt-documentaiton-ls',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
-    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
-  },
-  {
-    title: 'Terrain editor replacement for Arma 3 SDK tool',
-    description: 'A prototype of a terrain editor aiming a replacing Arma 3 Terrain Builder, Made with Unity',
-    slug: 'terrain-replace-ss',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
-    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
-  },
-  {
-    title: 'Environnment mod for Arma 3',
-    description: 'A environement pack to add variety to ',
-    slug: 'utd-sahel-kk',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
-    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
-  },
-  {
-    title: 'Documentation UTD',
-    description: 'Project gridsome, technical blog',
-    slug: 'udt-documentaiton-dfg',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
-    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
-  },
-  {
-    title: 'Terrain editor replacement for Arma 3 SDK tool',
-    description: 'A prototype of a terrain editor aiming a replacing Arma 3 Terrain Builder, Made with Unity',
-    slug: 'terrain-replace-dd',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
-    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
-  },
-  {
-    title: 'Environnment mod for Arma 3',
-    description: 'A environement pack to add variety to ',
-    slug: 'utd-sahel-dfd',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
-    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
-  },
-  {
-    title: 'Documentation UTD',
-    description: 'Project gridsome, technical blog',
-    slug: 'udt-documentaiton-fdf',
-    thumbnail: 'https://cdna.artstation.com/p/assets/images/images/009/587/554/large/m-s-sans-titre-1.jpg?1519815148',
-    body: "[{\"type\":\"paragraph\",\"text\":\"Initié il y a maintenant plusieurs années (et mis au/ressorti du placard maintes reprises)\"}]"
-  }
-]
-
 module.exports = function (api) {
   api.loadSource(async ({ addCollection }) => {
     const projectCollection = addCollection('Project')
@@ -92,37 +26,13 @@ module.exports = function (api) {
           thumbnail: d.data.thumbnail.url,
           title: d.data.title,
           description: d.data.description,
+          introduction: JSON.stringify(d.data.introduction),
+          mosaic: d.data.mosaic ? JSON.stringify(d.data.mosaic.map(({ image: img }) => ({ url: img.url, alt: img.alt }))) : null,
           body: JSON.stringify(d.data.body)
         })
       }
     } catch (error) {
       console.log(error)
     }
-
-    for (const project of projects) {
-      projectCollection.addNode(project)
-    }
   })
 }
-
-
-// module.exports = function (api) {
-//   api.createPages(({ graphql, createPage }) => {
-//     const result = await graphql('query sorted posts')
-
-//     result.data.allPost.edges.forEach(({ node }, i, edges) => {
-//       const prev = edges[i - 1]
-//       const next = edges[i + 1]
-    
-//       createPage({
-//         path: edge.node.path,
-//         component: './src/templates/PostTemplate.vue'
-//         queryVariables: {
-//           id: edge.node.id,
-//           prevId: prev ? prev.node.id : null,
-//           nextId: next ? next.node.id : null
-//         }
-//       })
-//     })
-//   })
-// }

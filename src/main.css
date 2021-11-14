@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 body {
-  background-color: #ffffff;
-  font-family:'Open Sans';
+  @apply bg-white;
+  font-family: 'PT Sans', sans-serif;
 }
