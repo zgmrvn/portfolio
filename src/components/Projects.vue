@@ -1,11 +1,12 @@
 <template>
-  <div class="flex flex-wrap -mt-32">
-    <Project
+  <div class="flex flex-wrap -mx-2 -mt-16">
+    <div
       v-for="p of $page.projects.edges.map(edge => edge.node)"
       :key="p.slug"
-      v-bind="p"
-      class="w-1/4 mt-32"
-    />
+      class="w-1/3 px-2 mt-16"
+    >
+      <Project v-bind="p" />
+    </div>
   </div>
 </template>
 

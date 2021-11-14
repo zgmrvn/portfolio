@@ -2,14 +2,32 @@
   <Layout>
     <div class="sticky top-0 w-full bg-white border-b border-gray-200 py-6">
       <div class="container">
-        <div class="flex justify-between">
-          <GLink to="/">
-
+        <div class="flex justify-between text-gray-700 font-semibold">
+          <!-- home -->
+          <GLink
+            to="/"
+            class="flex items-center"
+          >
+            <ArrowLeftCircleIcon
+              size="2x"
+              stroke-width="1.5"
+              class="inline mr-2"
+            />
             Home
           </GLink>
 
-          <GLink to="/">
+          <!-- next project - top -->
+          <GLink
+            v-if="nextProject"
+            :to="nextProject.path"
+            class="flex items-center"
+          >
             Next project
+            <ArrowLeftCircleIcon
+              size="2x"
+              stroke-width="1.5"
+              class="inline transform rotate-180 ml-2"
+            />
           </GLink>
         </div>
       </div>
@@ -32,8 +50,12 @@
 
       <div v-html="body" />
 
-      <GLink to="/">
-        Next project
+      <!-- next project - bottom -->
+      <GLink
+        v-if="nextProject"
+        :to="nextProject.path"
+      >
+        Next project {{ nextProject.name }}
       </GLink>
     </div>
   </Layout>
@@ -46,12 +68,17 @@ query ($id: ID!) {
     introduction
     mosaic
     body
+    nextProject {
+      path
+      title
+    }
   }
 }
 </page-query>
 
 <script>
 import PrismicDOM from 'prismic-dom'
+import { ArrowLeftCircleIcon } from 'vue-feather-icons'
 
 import htmlSerializer from '@/prismic/html-serializer.js'
 import linkResolver from '@/prismic/link-resolver.js'
@@ -62,7 +89,8 @@ import Mosaic from '@/components/Mosaic'
 export default {
   components: {
     Triangle,
-    Mosaic
+    Mosaic,
+    ArrowLeftCircleIcon
   },
 
   metaInfo() {
@@ -72,6 +100,10 @@ export default {
   },
 
   computed: {
+    nextProject() {
+      return this.$page.project.nextProject
+    },
+
     introduction() {
       return PrismicDOM.RichText.asHtml(JSON.parse(this.$page.project.introduction), linkResolver, htmlSerializer)
     },

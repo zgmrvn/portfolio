@@ -1,37 +1,29 @@
 <template>
   <div>
-    <div class="relative w-full h-72">
-      <Triangle
-        class="absolute z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-        :size="500"
-        :image="thumbnail"
-      />
+    <div class="h-52 overflow-hidden relative border border-gray-200 rounded-sm">
+      <img
+        :src="thumbnail"
+        alt=""
+        class="absolute top-1/2 object-cover transform -translate-y-1/2"
+      >
     </div>
 
-    <div class="relative h-12">
-      <div class="absolute z-10 top-0 inset-x-0 px-2">
-        <h2 class="text-lg text-gray-800 font-semibold leading-tight text-center">
-          <GLink :to="path">
-            {{ title }}
-          </GLink>
-        </h2>
 
-        <p class="text-gray-500 text-xs leading-tight text-justify mt-2">
-          {{ description }}
-        </p>
-      </div>
-    </div>
+    <h2 class="text-lg text-gray-800 font-semibold leading-tight text-center">
+      <GLink :to="path">
+        {{ title }}
+      </GLink>
+    </h2>
+
+    <p class="text-gray-500 text-xs leading-tight text-justify mt-2">
+      {{ description }}
+    </p>
+
   </div>
 </template>
 
 <script>
-import Triangle from '@/components/Triangle'
-
 export default {
-  components: {
-    Triangle
-  },
-
   props: {
     thumbnail: {
       type: String,

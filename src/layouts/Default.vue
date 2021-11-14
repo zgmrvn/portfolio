@@ -1,10 +1,8 @@
 <template>
   <div>
-    <transition name="fade" appear>
-      <main>
-        <slot />
-      </main>
-    </transition>
+    <main>
+      <slot />
+    </main>
   </div>
 </template>
 
@@ -15,13 +13,3 @@ query {
   }
 }
 </static-query>
-
-<style scope>
-.fade-enter-active {
-  transition: opacity .5s;
-}
-
-.fade-enter {
-  opacity: 0;
-}
-</style>

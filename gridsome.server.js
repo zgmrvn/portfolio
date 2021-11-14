@@ -8,27 +8,44 @@
 const Prismic = require('@prismicio/client');
 
 module.exports = function (api) {
-  api.loadSource(async ({ addCollection }) => {
+  api.loadSource(async ({ addCollection, store, addSchemaResolvers  }) => {
+    // create a "Project" collection
     const projectCollection = addCollection('Project')
 
     try {
+      // fetch documents from Prismic
       const api = await Prismic.getApi(
         process.env.PRISMIC_API_ENDPOINT,
-        { accessToken: process.env.PRISMIC_ACCESS_TOKEN, }
+        { accessToken: process.env.PRISMIC_ACCESS_TOKEN }
       )
 
       const { results } = await api.query(Prismic.Predicates.at('document.type', 'project'))
 
-      for (const d of results) {
+      // prepare the data objects and sort them by date of first_publication_date
+      const projects = results
+        .map((r) => {
+          return {
+            id: r.id,
+            slug: r.uid,
+            date: r.data.date || r.first_publication_date, // because we can override date in Prismic
+            thumbnail: r.data.thumbnail.url,
+            title: r.data.title,
+            description: r.data.description,
+            introduction: JSON.stringify(r.data.introduction),
+            mosaic: r.data.mosaic ? JSON.stringify(r.data.mosaic.map(({ image: img }) => ({ url: img.url, alt: img.alt }))) : null,
+            body: JSON.stringify(r.data.body)
+          }
+        })
+        .sort((a, b) => { new Date(b.date) - new Date(a.date) })
+
+      // push them into the collection
+      for (let i = projects.length - 1; i >= 0; i--) {
+        const current = projects[i]
+        const next = projects[i + 1]
+
         projectCollection.addNode({
-          slug: d.uid,
-          publishAt: d.first_publication_date,
-          thumbnail: d.data.thumbnail.url,
-          title: d.data.title,
-          description: d.data.description,
-          introduction: JSON.stringify(d.data.introduction),
-          mosaic: d.data.mosaic ? JSON.stringify(d.data.mosaic.map(({ image: img }) => ({ url: img.url, alt: img.alt }))) : null,
-          body: JSON.stringify(d.data.body)
+          ...current,
+          nextProject: next ? store.createReference('Project', next.id) : null
         })
       }
     } catch (error) {
