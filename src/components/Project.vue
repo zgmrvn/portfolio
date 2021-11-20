@@ -1,21 +1,20 @@
 <template>
   <div>
-    <div class="h-52 overflow-hidden relative border border-gray-200 rounded-sm">
-      <img
-        :src="thumbnail"
-        alt=""
-        class="absolute top-1/2 object-cover transform -translate-y-1/2"
-      >
-    </div>
+    <img
+      :src="`${thumbnail}&w=318&h=224&fit=crop&crop=focalpoint`"
+      alt=""
+      width="318"
+      height="224"
+      class="border-gray-200 rounded-sm"
+    >
 
-
-    <h2 class="text-lg text-gray-800 font-semibold leading-tight text-center">
+    <h2 class="text-lg text-gray-800 font-semibold leading-tight mt-1">
       <GLink :to="path">
         {{ title }}
       </GLink>
     </h2>
 
-    <p class="text-gray-500 text-xs leading-tight text-justify mt-2">
+    <p class="text-gray-500 text-sm leading-tight text-justify">
       {{ description }}
     </p>
 

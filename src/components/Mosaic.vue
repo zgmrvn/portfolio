@@ -6,7 +6,9 @@
   >
     <div class="w-1/2">
       <img
-        :src="images[0].url"
+        :src="`${images[0].url}&w=494&h=560&fit=crop&crop=focalpoint`"
+        width="494"
+        height="560"
         :alt="images[0].alt"
         class="object-cover h-full"
       >
@@ -15,14 +17,18 @@
     <div class="w-1/2 ml-1">
       <div>
         <img
-          :src="images[1].url"
+          :src="`${images[1].url}&w=494&h=278&fit=crop&crop=focalpoint`"
+          width="494"
+          height="278"
           :alt="images[1].alt"
           class="object-cover h-full"
         >
       </div>
       <div class="mt-1">
         <img
-          :src="images[2].url"
+          :src="`${images[2].url}&w=494&h=278&fit=crop&crop=focalpoint`"
+          width="494"
+          height="278"
           :alt="images[2].alt"
           class="object-cover h-full"
         >

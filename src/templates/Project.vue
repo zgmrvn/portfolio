@@ -43,20 +43,43 @@
         class="mt-24"
       />
 
-      <Mosaic
-        :images="mosaic"
-        class="mt-4"
-      />
+      <ImgLazyLoaderContainer>
+        <Mosaic
+          :images="mosaic"
+          class="mt-4"
+        />
+      </ImgLazyLoaderContainer>
 
-      <div v-html="body" />
+      <ImgLazyLoaderContainer>
+        <div v-html="body" />
+      </ImgLazyLoaderContainer>
 
       <!-- next project - bottom -->
-      <GLink
+      <div
         v-if="nextProject"
-        :to="nextProject.path"
+        class="flex justify-center mt-28"
       >
-        Next project {{ nextProject.name }}
-      </GLink>
+        <GLink
+          v-if="nextProject"
+          :to="nextProject.path"
+          class="flex items-center text-gray-800"
+        >
+          <div class="font-semibold leading-tight">
+            <span class="text-gray-600">
+              Next project
+            </span>
+            <br>
+            <span class="text-3xl">
+              {{ nextProject.title }}
+            </span>
+          </div>
+          <ArrowLeftCircleIcon
+            size="5.2x"
+            stroke-width="0.85"
+            class="inline transform rotate-180 ml-2"
+          />
+        </GLink>
+      </div>
     </div>
   </Layout>
 </template>
@@ -83,13 +106,13 @@ import { ArrowLeftCircleIcon } from 'vue-feather-icons'
 import htmlSerializer from '@/prismic/html-serializer.js'
 import linkResolver from '@/prismic/link-resolver.js'
 
-import Triangle from '@/components/Triangle'
 import Mosaic from '@/components/Mosaic'
+import ImgLazyLoaderContainer from '@/components/ImgLazyLoaderContainer'
 
 export default {
   components: {
-    Triangle,
     Mosaic,
+    ImgLazyLoaderContainer,
     ArrowLeftCircleIcon
   },
 

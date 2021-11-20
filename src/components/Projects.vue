@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap -mx-2 -mt-16">
+  <ImgLazyLoaderContainer class="flex flex-wrap -mx-2 -mt-16">
     <div
       v-for="p of $page.projects.edges.map(edge => edge.node)"
       :key="p.slug"
@@ -7,14 +7,16 @@
     >
       <Project v-bind="p" />
     </div>
-  </div>
+  </ImgLazyLoaderContainer>
 </template>
 
 <script>
+import ImgLazyLoaderContainer from '@/components/ImgLazyLoaderContainer'
 import Project from '@/components/Project'
 
 export default {
   components: {
+    ImgLazyLoaderContainer,
     Project
   }
 }
