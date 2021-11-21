@@ -38,6 +38,18 @@
         {{ $page.project.title }}
       </h1>
 
+      <div class="flex flex-wrap items-center justify-center -mx-1 mt-2">
+        <div
+          v-for="(tag, i) of $page.project.tags"
+          :key="i"
+          class="px-1"
+        >
+          <Tag class="text-sm">
+            {{ tag.title }}
+          </Tag>
+        </div>
+      </div>
+
       <div
         v-html="introduction"
         class="mt-24"
@@ -91,6 +103,9 @@ query ($id: ID!) {
     introduction
     mosaic
     body
+    tags {
+      title
+    }
     nextProject {
       path
       title
@@ -106,14 +121,16 @@ import { ArrowLeftCircleIcon } from 'vue-feather-icons'
 import htmlSerializer from '@/prismic/html-serializer.js'
 import linkResolver from '@/prismic/link-resolver.js'
 
-import Mosaic from '@/components/Mosaic'
 import ImgLazyLoaderContainer from '@/components/ImgLazyLoaderContainer'
+import Mosaic from '@/components/Mosaic'
+import Tag from '@/components/Tag'
 
 export default {
   components: {
-    Mosaic,
     ImgLazyLoaderContainer,
-    ArrowLeftCircleIcon
+    ArrowLeftCircleIcon,
+    Mosaic,
+    Tag
   },
 
   metaInfo() {

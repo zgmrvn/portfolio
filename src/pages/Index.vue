@@ -22,6 +22,9 @@ query {
         title
         description
         path
+        tags {
+          title
+        }
       }
     }
   }

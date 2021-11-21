@@ -9,38 +9,45 @@ const Prismic = require('@prismicio/client');
 
 module.exports = function (api) {
   api.loadSource(async ({ addCollection, store, addSchemaResolvers  }) => {
-    // create a "Project" collection
+    // initialize Prismic API
+    const api = await Prismic.getApi(
+      process.env.PRISMIC_API_ENDPOINT,
+      { accessToken: process.env.PRISMIC_ACCESS_TOKEN }
+    )
+
+    //  fetch tags
+    const { results: tags } = await api.query(Prismic.Predicates.at('document.type', 'tag'))
+
+    const tagCollection = addCollection('Tag')
+    
+    tags.forEach((tag) => {
+      tagCollection.addNode({
+        id: tag.id,
+        title: tag.data.title,
+        color: tag.data.color
+      })
+    })
+
+    // fetch projects
+    const { results: projects } = await api.query(Prismic.Predicates.at('document.type', 'project'))
+
     const projectCollection = addCollection('Project')
 
-    try {
-      // fetch documents from Prismic
-      const api = await Prismic.getApi(
-        process.env.PRISMIC_API_ENDPOINT,
-        { accessToken: process.env.PRISMIC_ACCESS_TOKEN }
-      )
-
-      const { results } = await api.query(Prismic.Predicates.at('document.type', 'project'))
-
-      // prepare the data objects and sort them by date of first_publication_date
-      const projects = results.map((r) => {
-        return {
-          slug: r.uid,
-          date: r.data.date || r.first_publication_date, // because we can override date in Prismic
-          thumbnail: r.data.thumbnail.url,
-          title: r.data.title,
-          description: r.data.description,
-          introduction: JSON.stringify(r.data.introduction),
-          mosaic: r.data.mosaic ? JSON.stringify(r.data.mosaic.map(({ image: img }) => ({ url: img.url, alt: img.alt }))) : null,
-          body: JSON.stringify(r.data.body)
-        }
+    projects.forEach((project) => {
+      projectCollection.addNode({
+        slug: project.uid,
+        date: project.data.date || project.first_publication_date,
+        thumbnail: project.data.thumbnail.url,
+        title: project.data.title,
+        description: project.data.description,
+        introduction: JSON.stringify(project.data.introduction),
+        mosaic: project.data.mosaic ? JSON.stringify(project.data.mosaic.map(({ image: img }) => ({ url: img.url, alt: img.alt }))) : null,
+        body: JSON.stringify(project.data.body),
+        tags: project.data.tags.map(p => store.createReference('Tag', p.tag.id))
       })
+    })
 
-      // push them into the collection
-      projects.forEach(project => projectCollection.addNode(project))
-    } catch (error) {
-      console.log(error)
-    }
-
+    // custom resolvers
     addSchemaResolvers({
       Project: {
         nextProject: {
