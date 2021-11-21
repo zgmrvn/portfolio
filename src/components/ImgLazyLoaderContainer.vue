@@ -29,14 +29,15 @@ export default {
       imgs.forEach((img) => {
         img.setAttribute('data-src', img.getAttribute('src'))
         img.removeAttribute('src')
-        img.classList.add('invisible')
+        img.classList.add('opacity-0')
       })
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.setAttribute('src', entry.target.dataset.src)
-            entry.target.classList.remove('invisible')
+            entry.target.classList.remove('opacity-0')
+            entry.target.classList.add('transition-opacity', 'duration-500', 'ease-out', 'opacity-100')
           }
         })
       })
