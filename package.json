@@ -7,11 +7,7 @@
     "explore": "gridsome explore"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.29",
-    "@fortawesome/free-brands-svg-icons": "^5.13.1",
-    "@fortawesome/vue-fontawesome": "^0.1.10",
     "@prismicio/client": "^5.1.0",
-    "css.gg": "^2.0.0",
     "gridsome": "^0.7.17",
     "prismic-dom": "^2.2.6",
     "vue-feather-icons": "^5.1.0"

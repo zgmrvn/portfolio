@@ -1,7 +1,5 @@
 colors = require('tailwindcss/colors')
 
-const fontAwesomeWhitelistPatterns = [/^fa-/, /^svg-inline--fa/]
-
 module.exports = {
   purge: {
     content: [
@@ -11,7 +9,7 @@ module.exports = {
     ],
     options: {
       whitelist: [],
-      whitelistPatterns: [...fontAwesomeWhitelistPatterns], 
+      whitelistPatterns: [], 
       whitelistPatternsChildren: [], 
     }
   },
