@@ -1,11 +1,11 @@
 <template>
   <div>
     <img
-      :src="`${thumbnail}&w=318&h=224&fit=crop&crop=focalpoint`"
+      :src="`${thumbnail}&w=320&h=224&fit=crop&crop=focalpoint`"
       alt=""
-      width="318"
+      width="320"
       height="224"
-      class="border-gray-200 rounded-sm"
+      class="rounded-sm"
     >
 
     <h2 class="text-lg text-gray-800 font-semibold leading-tight mt-1">
