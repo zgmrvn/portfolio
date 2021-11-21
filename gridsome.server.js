@@ -22,34 +22,37 @@ module.exports = function (api) {
       const { results } = await api.query(Prismic.Predicates.at('document.type', 'project'))
 
       // prepare the data objects and sort them by date of first_publication_date
-      const projects = results
-        .map((r) => {
-          return {
-            id: r.id,
-            slug: r.uid,
-            date: r.data.date || r.first_publication_date, // because we can override date in Prismic
-            thumbnail: r.data.thumbnail.url,
-            title: r.data.title,
-            description: r.data.description,
-            introduction: JSON.stringify(r.data.introduction),
-            mosaic: r.data.mosaic ? JSON.stringify(r.data.mosaic.map(({ image: img }) => ({ url: img.url, alt: img.alt }))) : null,
-            body: JSON.stringify(r.data.body)
-          }
-        })
-        .sort((a, b) => { new Date(b.date) - new Date(a.date) })
+      const projects = results.map((r) => {
+        return {
+          slug: r.uid,
+          date: r.data.date || r.first_publication_date, // because we can override date in Prismic
+          thumbnail: r.data.thumbnail.url,
+          title: r.data.title,
+          description: r.data.description,
+          introduction: JSON.stringify(r.data.introduction),
+          mosaic: r.data.mosaic ? JSON.stringify(r.data.mosaic.map(({ image: img }) => ({ url: img.url, alt: img.alt }))) : null,
+          body: JSON.stringify(r.data.body)
+        }
+      })
 
       // push them into the collection
-      for (let i = projects.length - 1; i >= 0; i--) {
-        const current = projects[i]
-        const next = projects[i + 1]
-
-        projectCollection.addNode({
-          ...current,
-          nextProject: next ? store.createReference('Project', next.id) : null
-        })
-      }
+      projects.forEach(project => projectCollection.addNode(project))
     } catch (error) {
       console.log(error)
     }
+
+    addSchemaResolvers({
+      Project: {
+        nextProject: {
+          type: 'Project',
+          resolve(obj, args, context, info) {  
+            return context.store.getCollection('Project')
+              .findNodes({ date: { '$lte' : obj.date }, slug: { '$ne': obj.slug } })
+              .sort((a, b) => new Date(b.date) - new Date(a.date))
+              [0]
+          }
+        }
+      }
+    })
   })
 }

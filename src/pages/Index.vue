@@ -15,7 +15,7 @@
 
 <page-query>
 query {
-  projects: allProject {
+  projects: allProject(sortBy: "date", order: DESC) {
     edges {
       node {
         thumbnail
