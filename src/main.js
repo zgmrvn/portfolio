@@ -4,6 +4,7 @@
 import './main.css'
 // import logo from './assets/images/corp.png'
 import DefaultLayout from '~/layouts/Default.vue'
+import LazyLoaderContainer from '@/components/LazyLoaderContainer'
 
 export default function (Vue, { head }) {
   head.link.push({
@@ -19,6 +20,7 @@ export default function (Vue, { head }) {
   head.meta.push({ property: 'og:url', content: 'https://www.corp-arma.fr' })
   // head.meta.push({ property: 'og:image', content: 'https://www.corp-arma.fr' + logo })
 
-  // Set default layout as a global component
   Vue.component('Layout', DefaultLayout)
+
+  Vue.component('LazyLoaderContainer', LazyLoaderContainer)
 }

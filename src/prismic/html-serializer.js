@@ -1,12 +1,14 @@
 import PrismicDOM from 'prismic-dom'
 
+import linkResolver from './link-resolver.js'
+
 const Elements = PrismicDOM.RichText.Elements
 const IMAGE_WIDTH = 992
 
 export default function(type, element, content, children) {
   switch(type) {
     case Elements.paragraph:
-      return '<p class="text-justify w-3/4 mx-auto mt-4">' + children.join('') + '</p>'
+      return '<p class="text-justify w-full md:w-3/4 mx-auto mt-4">' + children.join('') + '</p>'
 
     case Elements.image:
       const height = Math.round(IMAGE_WIDTH / element.dimensions.width * element.dimensions.width)
@@ -16,36 +18,56 @@ export default function(type, element, content, children) {
                  width="${IMAGE_WIDTH}"
                  height="${height}"
                  alt="${element.alt}"
-                 class="mt-4"
+                 class="mt-4 border border-gray-200 rounded-sm"
                >
              `)
 
     case Elements.hyperlink:
-      var target = element.data.target ? 'target="' + element.data.target + '" rel="noopener"' : ''
-      var linkUrl = PrismicDOM.Link.url(element.data, linkResolver)
-      return '<a class="some-link"' + target + ' href="' + linkUrl + '">' + content + '</a>'
+      const target = element.data.target ? `target="${element.data.target}" rel="noopener"` : ''
+      const linkUrl = PrismicDOM.Link.url(element.data, linkResolver)
+      return `<a class="underline text-gray-600 hover:text-blue-500" ${target} href="${linkUrl}">${content}</a>`
 
     case Elements.embed:
-      const key = element.oembed.embed_url.split('/').slice(-1)[0] 
+      switch (element.oembed.provider_name) {
+        case 'YouTube':
+          const key = element.oembed.embed_url.split('/').slice(-1)[0]
 
-      return (`
-        <div data-oembed="${element.oembed.embed_url}"
-          data-oembed-type="${element.oembed.type}"
-          data-oembed-provider="${element.oembed.provider_name}"
-          class="relative w-3/4 mx-auto mt-4 h-0"
-          style="padding-bottom: 42%;"
-        >
-          <iframe
-            width="480"
-            height="360"
-            class="absolute w-full h-full left-0 top-0"
-            src="https://www.youtube.com/embed/${key}?feature=oembed"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
-      `)
+          return (`
+            <div data-oembed="${element.oembed.embed_url}"
+              data-oembed-type="${element.oembed.type}"
+              data-oembed-provider="${element.oembed.provider_name}"
+              class="relative w-full md:w-3/4 mx-auto mt-4 h-0 overflow-hidden"
+              style="padding-bottom: 42%;"
+            >
+              <iframe
+                width="480"
+                height="360"
+                class="absolute w-full h-full left-0 top-0"
+                src="https://www.youtube.com/embed/${key}?feature=oembed"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          `)
+    
+        case 'Imgur':
+          const url = element.oembed.embed_url.slice(8)
+
+          return (`
+            <video
+              width="${element.oembed.width}"
+              height="${element.oembed.height}"
+              class="w-full md:w-3/4 mx-auto mt-4"
+              autoplay
+              muted
+              loop
+              playsinline
+            >
+              <source src="https://i.${url}.mp4" type="video/mp4">
+            </video>
+          `)
+      }
 
     // Return null to stick with the default behavior for all other elements
     default:

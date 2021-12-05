@@ -33,7 +33,7 @@
       </div>
     </div>
 
-    <div class="container py-32">
+    <div class="container py-24 md:py-32">
       <h1 class="text-4xl font-semibold text-center">
         {{ $page.project.title }}
       </h1>
@@ -52,19 +52,19 @@
 
       <div
         v-html="introduction"
-        class="mt-24"
+        class="mt-16 md:mt-24"
       />
 
-      <ImgLazyLoaderContainer>
+      <LazyLoaderContainer>
         <Mosaic
           :images="mosaic"
           class="mt-4"
         />
-      </ImgLazyLoaderContainer>
+      </LazyLoaderContainer>
 
-      <ImgLazyLoaderContainer>
+      <LazyLoaderContainer :video="true">
         <div v-html="body" />
-      </ImgLazyLoaderContainer>
+      </LazyLoaderContainer>
 
       <!-- next project - bottom -->
       <div
@@ -111,7 +111,7 @@ query ($id: ID!) {
       title
     }
   }
-}
+  }
 </page-query>
 
 <script>
@@ -121,13 +121,11 @@ import { ArrowLeftCircleIcon } from 'vue-feather-icons'
 import htmlSerializer from '@/prismic/html-serializer.js'
 import linkResolver from '@/prismic/link-resolver.js'
 
-import ImgLazyLoaderContainer from '@/components/ImgLazyLoaderContainer'
 import Mosaic from '@/components/Mosaic'
 import Tag from '@/components/Tag'
 
 export default {
   components: {
-    ImgLazyLoaderContainer,
     ArrowLeftCircleIcon,
     Mosaic,
     Tag

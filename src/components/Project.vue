@@ -1,11 +1,11 @@
 <template>
   <GLink :to="path">
     <img
-      :src="`${thumbnail}&w=320&h=224&fit=crop&crop=focalpoint`"
+      :src="`${thumbnail}&w=318&h=224&fit=crop&crop=focalpoint`"
       alt=""
       width="320"
       height="224"
-      class="rounded-sm"
+      class="w-full border border-gray-200 rounded-sm"
     >
 
     <h2 class="text-xl text-gray-800 font-semibold leading-tight mt-1">
