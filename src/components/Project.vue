@@ -39,7 +39,7 @@ export default {
   props: {
     thumbnail: {
       type: String,
-      default: 'https://i.imgur.com/9iuXB9k.jpg'
+      default: null
     },
 
     title: {
