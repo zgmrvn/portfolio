@@ -39,11 +39,13 @@ module.exports = function (api) {
         date: project.data.date || project.first_publication_date,
         thumbnail: project.data.thumbnail.url,
         title: project.data.title,
+        tags: project.data.tags.map(p => store.createReference('Tag', p.tag.id)),
+        gitHubLink: project.data.github_link.url,
+        projectLink: project.data.project_link.url,
         description: project.data.description,
         introduction: JSON.stringify(project.data.introduction),
         mosaic: project.data.mosaic ? JSON.stringify(project.data.mosaic.map(({ image: img }) => ({ url: img.url, alt: img.alt }))) : null,
         body: JSON.stringify(project.data.body),
-        tags: project.data.tags.map(p => store.createReference('Tag', p.tag.id))
       })
     })
 

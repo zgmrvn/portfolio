@@ -38,6 +38,7 @@
         {{ $page.project.title }}
       </h1>
 
+      <!-- tags -->
       <div class="flex flex-wrap items-center justify-center -mx-1 mt-2">
         <div
           v-for="(tag, i) of $page.project.tags"
@@ -49,6 +50,23 @@
           </Tag>
         </div>
       </div>
+
+      <!-- links -->
+      <a
+        v-if="$page.project.gitHubLink"
+        :href="$page.project.gitHubLink"
+        target="_blank"
+      >
+        GitHub
+      </a>
+
+      <a
+        v-if="$page.project.projectLink"
+        :href="$page.project.projectLink"
+        target="_blank"
+      >
+        Project
+      </a>
 
       <div
         v-html="introduction"
@@ -100,6 +118,8 @@
 query ($id: ID!) {
   project(id: $id) {
     title
+    gitHubLink
+    projectLink
     introduction
     mosaic
     body
