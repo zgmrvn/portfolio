@@ -5,8 +5,8 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 module.exports = {
-  siteName: 'CORP',
-  siteUrl: 'https://www.corp-arma.fr',
+  siteName: 'zgmrvn',
+  siteUrl: 'https://www.zgmrvn.com',
   templates: {
     Project: '/projects/:slug',
   },
