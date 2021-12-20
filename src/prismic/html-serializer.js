@@ -8,7 +8,18 @@ const IMAGE_WIDTH = 992
 export default function(type, element, content, children) {
   switch(type) {
     case Elements.paragraph:
-      return '<p class="text-justify w-full md:w-3/4 mx-auto mt-4">' + children.join('') + '</p>'
+      return `<p class="text-justify w-full md:w-3/4 mx-auto mt-4">${children.join('')}</p>`
+
+    case Elements.hyperlink:
+      const target = element.data.target ? `target="${element.data.target}" rel="noopener"` : ''
+      const linkUrl = PrismicDOM.Link.url(element.data, linkResolver)
+      return `<a class="underline text-gray-600 hover:text-blue-500" ${target} href="${linkUrl}">${content}</a>`
+
+    case Elements.list:
+      return `<ul class="w-full md:w-3/4 mx-auto mt-4 list-disc list-inside px-4">${children.join('')}</ul>`
+
+    case Elements.listItem:
+      return `<li>${children.join('')}</li>`
 
     case Elements.image:
       const height = Math.round(IMAGE_WIDTH / element.dimensions.width * element.dimensions.width)
@@ -21,11 +32,6 @@ export default function(type, element, content, children) {
                  class="mt-4 border border-gray-200 rounded-sm"
                >
              `)
-
-    case Elements.hyperlink:
-      const target = element.data.target ? `target="${element.data.target}" rel="noopener"` : ''
-      const linkUrl = PrismicDOM.Link.url(element.data, linkResolver)
-      return `<a class="underline text-gray-600 hover:text-blue-500" ${target} href="${linkUrl}">${content}</a>`
 
     case Elements.embed:
       switch (element.oembed.provider_name) {
