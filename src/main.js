@@ -16,8 +16,8 @@ export default function (Vue, { head }) {
 
   // Open Graph
   head.meta.push({ property: 'og:type', content: 'website' })
-  head.meta.push({ property: 'og:title', content: 'CORP - Équipe Arma 3 simulation/réalisme' })
-  head.meta.push({ property: 'og:url', content: 'https://www.corp-arma.fr' })
+  head.meta.push({ property: 'og:title', content: 'zgmrvn - portfolio' })
+  // head.meta.push({ property: 'og:url', content: 'https://www.corp-arma.fr' })
   // head.meta.push({ property: 'og:image', content: 'https://www.corp-arma.fr' + logo })
 
   Vue.component('Layout', DefaultLayout)
