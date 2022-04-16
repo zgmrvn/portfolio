@@ -12,11 +12,11 @@ export default function (Vue, { head }) {
     href: 'https://fonts.googleapis.com/css2?family=Montserrat&family=PT+Sans&display=swap'
   })
 
-  head.meta.push({ name: 'keywords',  content: 'équipe, team, clan, Arma, simulation, réalisme, tactique' })
+  // head.meta.push({ name: 'keywords',  content: 'équipe, team, clan, Arma, simulation, réalisme, tactique' })
 
   // Open Graph
   head.meta.push({ property: 'og:type', content: 'website' })
-  head.meta.push({ property: 'og:title', content: 'zgmrvn - portfolio' })
+  head.meta.push({ property: 'og:title', content: 'zgmrvn' })
   // head.meta.push({ property: 'og:url', content: 'https://www.corp-arma.fr' })
   // head.meta.push({ property: 'og:image', content: 'https://www.corp-arma.fr' + logo })
 

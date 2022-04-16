@@ -42,7 +42,7 @@ export default {
   },
 
   metaInfo: {
-    title: 'Équipe Arma 3 simulation/réalisme'
+    title: 'Portfolio'
   }
 }
 </script>
